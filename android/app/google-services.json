@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1075805018305",
+    "firebase_url": "https://coviva-6c25f.firebaseio.com",
+    "project_id": "coviva-6c25f",
+    "storage_bucket": "coviva-6c25f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075805018305:android:6d17fe1d13b14b61",
+        "android_client_info": {
+          "package_name": "com.example.coviva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075805018305-4761tu2jgn6uppnnaf2iu0a5l09d06jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAan51wsdErgU3A8oLTSwUSUn2WjN7eB90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075805018305-4761tu2jgn6uppnnaf2iu0a5l09d06jd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075805018305:android:f77d8b184cb4a896",
+        "android_client_info": {
+          "package_name": "com.example.phelum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075805018305-4761tu2jgn6uppnnaf2iu0a5l09d06jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAan51wsdErgU3A8oLTSwUSUn2WjN7eB90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075805018305-4761tu2jgn6uppnnaf2iu0a5l09d06jd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
