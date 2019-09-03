@@ -21,9 +21,7 @@ class MovieCard extends StatelessWidget {
             child: Container(
               child: Stack(
                 children: <Widget>[
-                  Image(
-                    image: AssetImage(imagePath),
-                  ),
+                  Image.network(imagePath),
                   Positioned(
                     bottom: 20,
                     left: 150,
