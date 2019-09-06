@@ -4,6 +4,7 @@ import 'package:phelum/colors.dart';
 import 'package:phelum/screens/seat_reservation.dart';
 import 'package:phelum/widgets/genre_tag.dart';
 import 'package:phelum/widgets/rating.dart';
+import 'package:phelum/widgets/switch_meta_info.dart';
 import 'package:phelum/widgets/synopsis_view.dart';
 
 class MovieDetail extends StatelessWidget {
@@ -56,7 +57,8 @@ class MovieDetail extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              SwitchableMetaInformation()
             ],
           ),
         ),
