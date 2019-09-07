@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:phelum/bloc/detail/detail_state.dart';
 import 'package:phelum/bloc/movie/movie_event.dart';
 import 'package:phelum/bloc/movie/movie_state.dart';
 import 'package:bloc/bloc.dart';
@@ -14,12 +15,12 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
 
   @override
   Stream<MovieState> mapEventToState(MovieEvent event) async* {
-    if (event is LoadMovies) {
-      yield* _mapLoadMoviesToState();
+    if (event is LoadDashboardItems) {
+      yield* _mapLoadDashboardItemsToState();
     }
   }
 
-  Stream<MovieState> _mapLoadMoviesToState() async* {
+  Stream<MovieState> _mapLoadDashboardItemsToState() async* {
     try {
       final movies = await this.firebaseMovieRepository.movies();
       yield MoviesLoaded(movies);

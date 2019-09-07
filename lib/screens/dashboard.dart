@@ -14,8 +14,8 @@ class Dashboard extends StatefulWidget {
   @override
   DashboardState createState() => DashboardState();
 
-  void _gotoDetails(BuildContext context) async {
-    await Navigator.pushNamed(context, MovieDetail.routeName);
+  void _gotoDetails(BuildContext context, int itemId) async {
+    await Navigator.pushNamed(context, MovieDetail.routeName, arguments: itemId);
   }
 
   void _gotoProfile(BuildContext context) async {
@@ -27,10 +27,9 @@ class Dashboard extends StatefulWidget {
         itemCount: state.movies.body.length,
         itemBuilder: (context, index) {
           return MovieCard(
-            title: state.movies.body.elementAt(index).title,
-            imagePath: state.movies.body.elementAt(index).posterPortrait,
+            dashboardItem: state.movies.body.elementAt(index),
             onPageClicked: (id) {
-              _gotoDetails(context);
+              _gotoDetails(context, id);
             },
           );
         },
@@ -42,7 +41,7 @@ class DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MovieBloc>(context)..dispatch(LoadMovies());
+    BlocProvider.of<MovieBloc>(context)..dispatch(LoadDashboardItems());
   }
 
   @override

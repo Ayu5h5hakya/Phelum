@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:phelum/data/repository.dart';
+import 'package:phelum/model/dashboard_item.dart';
 import 'package:phelum/model/movie.dart';
 
 @immutable
@@ -14,7 +15,7 @@ class MoviesLoading extends MovieState {
 }
 
 class MoviesLoaded extends MovieState {
-  final ParsedMoviesReponse<List<Movie>> movies;
+  final ParsedMoviesReponse<List<DashboardItem>> movies;
 
   MoviesLoaded([this.movies]) : super([movies]);
 
@@ -26,3 +27,4 @@ class MoviesNotLoaded extends MovieState {
   @override
   String toString() => 'MoviesNotLoaded';
 }
+

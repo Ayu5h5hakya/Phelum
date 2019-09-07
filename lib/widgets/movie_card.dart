@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:phelum/model/dashboard_item.dart';
 
 class MovieCard extends StatelessWidget {
-  String title;
-  String imagePath;
-  Color color;
+  DashboardItem dashboardItem;
   Function(int) onPageClicked;
 
-  MovieCard({Key key, this.title, this.imagePath, @required this.onPageClicked})
+  MovieCard({Key key, this.dashboardItem, @required this.onPageClicked})
       : super(key: key);
 
   @override
@@ -21,7 +20,7 @@ class MovieCard extends StatelessWidget {
             child: Container(
               child: Stack(
                 children: <Widget>[
-                  Image.network(imagePath),
+                  Image.network(dashboardItem.imageUrl),
                   Positioned(
                     bottom: 20,
                     left: 150,
@@ -37,7 +36,7 @@ class MovieCard extends StatelessWidget {
               ),
             ),
             onTap: () {
-              onPageClicked(1);
+              onPageClicked(dashboardItem.itemId);
             },
           ),
         ),

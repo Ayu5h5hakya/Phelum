@@ -1,16 +1,20 @@
 import 'dart:convert';
 
 import 'package:phelum/data/repository.dart';
+import 'package:phelum/entity/movie_entity.dart';
+import 'package:phelum/model/dashboard_item.dart';
 import 'package:phelum/model/movie.dart';
 import 'package:http/http.dart' as http;
 
 class FirebaseMovieRepository extends MovieRepository {
   static final baseUrl = 'https://coviva-6c25f.firebaseio.com/';
-  static final moviesPath = 'movies.json';
+  static final jsonExt = '.json';
+  static final dashboardPath = 'dashboard';
+  static final moviePath = 'movies';
   @override
-  Future<ParsedMoviesReponse<List<Movie>>> movies() async {
+  Future<ParsedMoviesReponse<List<DashboardItem>>> movies() async {
     http.Response response =
-        await http.get(baseUrl + moviesPath).catchError((err) {});
+        await http.get(baseUrl + dashboardPath + jsonExt).catchError((err) {});
 
     if (response == null) return new ParsedMoviesReponse(NO_INTERNET, []);
 
@@ -22,14 +26,30 @@ class FirebaseMovieRepository extends MovieRepository {
     return new ParsedMoviesReponse(
         response.statusCode,
         list.map((element) {
-          return Movie(
+          return DashboardItem(
+              element['item_id'],
               element['title'],
-              element['poster_portrait'],
-              element['poster_landscape'],
-              element['rating'],
-              element['runtime'],
-              element['release_date'],
-              element['p_rating']);
+              element['image_url'],
+              element['rating']);
         }).toList());
+  }
+
+  @override
+  Future<ParsedMoviesReponse<Movie>> movieDetail(int id) async{
+    http.Response response =
+        await http.get(baseUrl + moviePath + '/$id' + jsonExt).catchError((err) {
+          print(err);
+        });
+    
+    if (response == null) return new ParsedMoviesReponse(NO_INTERNET, Movie.empty());
+    if (response.statusCode < 200 || response.statusCode >= 300)
+      return new ParsedMoviesReponse(response.statusCode, Movie.empty());
+    final object = MovieEntity.fromJson(json.decode(response.body));
+    print(object);
+    return ParsedMoviesReponse(
+      response.statusCode,
+      Movie.fromEntity(object)
+    );
+    
   }
 }

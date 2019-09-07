@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:phelum/colors.dart';
 
 class SynopsisWidget extends StatelessWidget {
-  final value =
-      'An original standalone origin story of the iconic villain not seen before on the big screen, it\'s a gritty character study of Arthur Fleck, a man disregarded by society, and a broader cautionary tale. ';
+  final String value;
+  SynopsisWidget({this.value});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

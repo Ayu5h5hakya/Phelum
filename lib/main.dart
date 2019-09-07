@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phelum/bloc/auth/auth_bloc.dart';
 import 'package:phelum/bloc/auth/auth_event.dart';
+import 'package:phelum/bloc/detail/detail_bloc.dart';
 import 'package:phelum/bloc/login/login_bloc.dart';
 import 'package:phelum/bloc/movie/movie_bloc.dart';
 import 'package:phelum/bloc/movie/movie_event.dart';
@@ -15,16 +16,23 @@ import 'package:phelum/screens/seat_reservation.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  static final FirebaseUserRepository firebaseUserRepository = FirebaseUserRepository(); 
+  static final FirebaseUserRepository firebaseUserRepository =
+      FirebaseUserRepository();
+  static final FirebaseMovieRepository firebaseMovieRepository = 
+      FirebaseMovieRepository();
   final MovieBloc movieBloc =
-      MovieBloc(firebaseMovieRepository: FirebaseMovieRepository());
-  final LoginBloc loginBloc = 
+      MovieBloc(firebaseMovieRepository: firebaseMovieRepository);
+  final LoginBloc loginBloc =
       LoginBloc(firebaseUserRepository: firebaseUserRepository);
+  final DetailBloc detailBloc = 
+      DetailBloc(firebaseMovieRepository: firebaseMovieRepository);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      builder: (context) => AuthenticationBloc(firebaseUserRepository: firebaseUserRepository)..dispatch(AppStarted()),
+      builder: (context) =>
+          AuthenticationBloc(firebaseUserRepository: firebaseUserRepository)
+            ..dispatch(AppStarted()),
       child: _getMaterialApp(),
     );
   }
@@ -51,7 +59,10 @@ class MyApp extends StatelessWidget {
           case MovieDetail.routeName:
             {
               return MaterialPageRoute(builder: (context) {
-                return MovieDetail();
+                return BlocProvider.value(
+                  value: detailBloc,
+                  child: MovieDetail(movie_id : settings.arguments),
+                );
               });
             }
           case SeatReservationBooking.routeName:
@@ -62,14 +73,12 @@ class MyApp extends StatelessWidget {
             }
           case ProfileScreen.routeName:
             {
-              return MaterialPageRoute(
-                builder: (context) {
-                  return BlocProvider.value(
-                    value: loginBloc,
-                    child: ProfileScreen(),
-                  );
-                }
-              );
+              return MaterialPageRoute(builder: (context) {
+                return BlocProvider.value(
+                  value: loginBloc,
+                  child: ProfileScreen(),
+                );
+              });
             }
         }
       },
