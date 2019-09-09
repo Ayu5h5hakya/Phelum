@@ -16,38 +16,44 @@ class SwitchableMetaInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        if(director != null)
-        Container(
-          padding: EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                'Director',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              Text(director,
-                  style: TextStyle(color: Colors.white, fontSize: 16))
-            ],
+        Visibility(
+          visible: director != null,
+          child: Container(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Director',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                Text('$director',
+                    style: TextStyle(color: Colors.white, fontSize: 16))
+              ],
+            ),
           ),
         ),
-        if(budget != null)
-        Container(
-          color: midnightblue,
-          padding: EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                'Budget',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              Text(budget, style: TextStyle(color: Colors.white, fontSize: 16))
-            ],
+        Visibility(
+          visible: budget != null,
+          child: Container(
+            color: midnightblue,
+            padding: EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Budget',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                Text('$budget',
+                    style: TextStyle(color: Colors.white, fontSize: 16))
+              ],
+            ),
           ),
         ),
-        if (location != null)
-          Container(
+        Visibility(
+          visible: location != null,
+          child: Container(
             padding: EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,13 +62,15 @@ class SwitchableMetaInformation extends StatelessWidget {
                   'Location',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
-                Text(location,
+                Text('$location',
                     style: TextStyle(color: Colors.white, fontSize: 16))
               ],
             ),
           ),
-        if (ratio != null)
-          Container(
+        ),
+        Visibility(
+          visible: ratio != null,
+          child: Container(
             color: midnightblue,
             padding: EdgeInsets.all(16.0),
             child: Row(
@@ -72,10 +80,11 @@ class SwitchableMetaInformation extends StatelessWidget {
                   'Aspect Ratio',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
-                Text(ratio, style: TextStyle(color: Colors.white, fontSize: 16))
+                Text('$ratio', style: TextStyle(color: Colors.white, fontSize: 16))
               ],
             ),
-          )
+          ),
+        )
       ],
     );
   }
