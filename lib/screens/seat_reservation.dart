@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:phelum/data/seat_repository.dart';
 import 'package:phelum/widgets/screen_label.dart';
 import 'package:phelum/widgets/seat_arrangement.dart';
 import 'package:phelum/widgets/seat_legend.dart';
@@ -10,6 +11,9 @@ import '../colors.dart';
 
 class SeatReservationBooking extends StatelessWidget {
   static const routeName = '/seat_reservation_booking';
+  
+  final SeatRepository seatRepository;
+  SeatReservationBooking({this.seatRepository});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,7 @@ class SeatReservationBooking extends StatelessWidget {
               ShowTime(),
             ]),
             Container(
-              child: SeatingArrangement(),
+              child: SeatingArrangement(seatRepository),
               margin: EdgeInsets.all(13.0),
               width: double.infinity,
               height: 270,

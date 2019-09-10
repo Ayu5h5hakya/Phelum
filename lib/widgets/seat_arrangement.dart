@@ -1,23 +1,36 @@
+import 'dart:async';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:phelum/widgets/seat_painter.dart';
+import 'package:phelum/data/seat_repository.dart';
 
 class SeatingArrangement extends StatefulWidget {
   final int rowCount = 9;
   final int columnCount = 13;
   List<Color> colors;
+  final SeatRepository seatRepository;
 
-  SeatingArrangement(){
+  SeatingArrangement([this.seatRepository]){
     colors = List.generate(rowCount * columnCount, (index){
       return Colors.blue;
     });
-    print(colors.elementAt(5));
   }
   @override
   SeatState createState() => SeatState();
+  
 }
 
 class SeatState extends State<SeatingArrangement> {
+
+  StreamSubscription<Event> _onSeatAddedSubscription;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     _onSeatAddedSubscription = widget.seatRepository.seatsDB.onChildAdded.listen(_onSeatAdded);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +47,22 @@ class SeatState extends State<SeatingArrangement> {
         ),
         onTap: () {
           print(index);
-          setState(() {
-           widget.colors[index] = Colors.yellow; 
-          });
+          widget.seatRepository.addSeat(index, 0);
         },
         );
       }),
     );
+  }
+
+  @override
+  void dispose() {
+    _onSeatAddedSubscription.cancel();
+    super.dispose();
+  }
+
+  void _onSeatAdded(Event event) {
+    setState(() {
+      widget.colors[event.snapshot.value['index']] = Colors.yellow;
+    });
   }
 }

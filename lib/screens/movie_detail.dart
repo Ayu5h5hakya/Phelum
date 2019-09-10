@@ -38,7 +38,7 @@ class MovieDetail extends StatelessWidget {
               );
             }
             if (state is MovieDetailLoaded) {
-              return _displayMovieDetails(state.movieDetail.body);
+              return _displayMovieDetails(context, state.movieDetail.body);
             }
             if (state is DetailsNotLoaded) {
               return Text('err');
@@ -53,7 +53,7 @@ class MovieDetail extends StatelessWidget {
     await Navigator.pushNamed(context, SeatReservationBooking.routeName);
   }
 
-  Widget _displayMovieDetails(Movie movie) => Scaffold(
+  Widget _displayMovieDetails(BuildContext context, Movie movie) => Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return <Widget>[
@@ -108,7 +108,9 @@ class MovieDetail extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.event_seat),
-          onPressed: () {},
+          onPressed: () {
+            _gotoSeatBooking(context);
+          },
         ),
       );
 }
