@@ -65,7 +65,6 @@ class DashboardState extends State<Dashboard> {
           return Scaffold(
             appBar: AppBar(
               title: Text('Now showing'),
-              backgroundColor: wetasphalt,
               actions: <Widget>[
                 IconButton(
                   icon: Icon(
@@ -79,7 +78,7 @@ class DashboardState extends State<Dashboard> {
               ],
             ),
             body: Container(
-              color: wetasphalt,
+              color: midnightblue,
               child: widget._getMoviePages(state),
             ),
           );

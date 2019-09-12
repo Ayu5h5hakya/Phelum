@@ -7,6 +7,7 @@ import 'package:phelum/bloc/detail/detail_bloc.dart';
 import 'package:phelum/bloc/login/login_bloc.dart';
 import 'package:phelum/bloc/movie/movie_bloc.dart';
 import 'package:phelum/bloc/movie/movie_event.dart';
+import 'package:phelum/colors.dart';
 import 'package:phelum/data/firebase_movie_repository.dart';
 import 'package:phelum/data/firebase_user_repository.dart';
 import 'package:phelum/data/seat_repository.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: wetasphalt
       ),
       home: MultiBlocProvider(
         providers: [

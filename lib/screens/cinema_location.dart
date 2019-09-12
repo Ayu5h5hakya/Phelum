@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phelum/bloc/cinemaShow/show_bloc.dart';
 import 'package:phelum/bloc/cinemaShow/show_event.dart';
 import 'package:phelum/bloc/cinemaShow/show_state.dart';
+import 'package:phelum/colors.dart';
 import 'package:phelum/model/cinema_show.dart';
 import 'package:phelum/widgets/location_expansiontile.dart';
 
@@ -24,11 +25,17 @@ class CinemaLocation extends StatelessWidget {
         body: BlocBuilder<ShowBloc, CinemaState>(
           builder: (context, state) {
             if (state is CinemaShowLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
+              return Container(
+                color: midnightblue,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               );
             } else if (state is CinemaShowLoaded) {
-              return _getShowCinemas(state.cinemaDetail.body);
+              return Container(
+                color: midnightblue,
+                child: _getShowCinemas(state.cinemaDetail.body),
+              );
             } else {
               return Text('err');
             }
@@ -41,9 +48,15 @@ class CinemaLocation extends StatelessWidget {
       itemCount: shows.length,
       itemBuilder: (context, index) {
         return CinemaLocationTile(
-          title: Text(shows[index].name),
-          subtitle: Text(shows[index].address),
-          trailing: Text(shows[index].rating.toString()),
+          title: Text(
+            shows[index].name,
+            style: TextStyle(color: Colors.white),),
+          subtitle: Text(
+            shows[index].address,
+            style: TextStyle(color: Colors.white),),
+          trailing: Text(
+            shows[index].rating.toString(),
+            style: TextStyle(color: Colors.white),),
           child: Container(
             child: _getShowCinemaTimes(shows[index]),
           ),
@@ -54,14 +67,15 @@ class CinemaLocation extends StatelessWidget {
 
   Widget _getShowCinemaTimes(CinemaShow show) {
     return ListView.builder(
-              shrinkWrap: true,
-              itemCount: show.showTimes.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                      show.showTimes[index]),
-                );
-              },
-            );
+      shrinkWrap: true,
+      itemCount: show.showTimes.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(
+            show.showTimes[index],
+            style: TextStyle(color: Colors.white),),
+        );
+      },
+    );
   }
 }

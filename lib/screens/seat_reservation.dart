@@ -20,7 +20,6 @@ class SeatReservationBooking extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('seat'),
-        backgroundColor: wetasphalt,
       ),
       body: Container(
         color: wetasphalt,
