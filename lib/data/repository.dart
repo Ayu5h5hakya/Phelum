@@ -1,3 +1,4 @@
+import 'package:phelum/model/cinema_show.dart';
 import 'package:phelum/model/dashboard_item.dart';
 import 'package:phelum/model/movie.dart';
 
@@ -16,4 +17,5 @@ class ParsedMoviesReponse<T> {
 abstract class MovieRepository {
   Future<ParsedMoviesReponse<List<DashboardItem>>> movies();
   Future<ParsedMoviesReponse<Movie>> movieDetail(int id);
+  Future<ParsedMoviesReponse<List<CinemaShow>>> cinemaDetails(int id);
 }

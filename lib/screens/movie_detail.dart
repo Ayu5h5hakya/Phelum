@@ -8,6 +8,7 @@ import 'package:phelum/bloc/movie/movie_bloc.dart';
 import 'package:phelum/bloc/movie/movie_state.dart';
 import 'package:phelum/colors.dart';
 import 'package:phelum/model/movie.dart';
+import 'package:phelum/screens/cinema_location.dart';
 import 'package:phelum/screens/seat_reservation.dart';
 import 'package:phelum/widgets/genre_tag.dart';
 import 'package:phelum/widgets/rating.dart';
@@ -50,7 +51,7 @@ class MovieDetail extends StatelessWidget {
   }
 
   void _gotoSeatBooking(BuildContext context) async {
-    await Navigator.pushNamed(context, SeatReservationBooking.routeName);
+    await Navigator.pushNamed(context, CinemaLocation.routeName);
   }
 
   Widget _displayMovieDetails(BuildContext context, Movie movie) => Scaffold(
