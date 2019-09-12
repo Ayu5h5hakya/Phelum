@@ -46,13 +46,22 @@ class CinemaShow {
   final List<String> showTimes;
 
   CinemaShow(
-      this.name,
-      this.address,
-      this.rating,
-      this.showTimes,);
+    this.name,
+    this.address,
+    this.rating,
+    this.showTimes,
+  );
 
   @override
   String toString() {
     return 'CinemaShow {name : $name, address : $address, rating : $rating, showTimes : $showTimes, }';
+  }
+
+  static CinemaShow fromJson(Map<String, Object> json) {
+    return CinemaShow(
+        json['cinema_name'] as String,
+        json['cinema_address'] as String,
+        json['cinema_rating'] as double,
+        List<String>.from(json['show_time']));
   }
 }

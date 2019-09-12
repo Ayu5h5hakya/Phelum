@@ -28,33 +28,40 @@ class CinemaLocation extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (state is CinemaShowLoaded) {
-              return ListView.builder(
-                itemCount: state.cinemaDetail.body.length,
-                itemBuilder: (context, index) {
-                  return CinemaLocationTile(
-                    title: Text(state.cinemaDetail.body[index].name),
-                    subtitle: Text(state.cinemaDetail.body[index].address),
-                    trailing: Text(state.cinemaDetail.body[index].rating.toString()),
-                    child: Column(
-                      children: <Widget>[
-                        ListTile(
-                          title: Text('Today'),
-                          trailing: Text('182'),
-                        ),
-                        ListTile(
-                          title: Text('Tomorrow'),
-                          trailing: Text('182'),
-                        )
-                      ],
-                    ),
-                  );
-                },
-              );
-            }
-            else{
+              return _getShowCinemas(state.cinemaDetail.body);
+            } else {
               return Text('err');
             }
           },
         ));
+  }
+
+  Widget _getShowCinemas(List<CinemaShow> shows) {
+    return ListView.builder(
+      itemCount: shows.length,
+      itemBuilder: (context, index) {
+        return CinemaLocationTile(
+          title: Text(shows[index].name),
+          subtitle: Text(shows[index].address),
+          trailing: Text(shows[index].rating.toString()),
+          child: Container(
+            child: _getShowCinemaTimes(shows[index]),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _getShowCinemaTimes(CinemaShow show) {
+    return ListView.builder(
+              shrinkWrap: true,
+              itemCount: show.showTimes.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                      show.showTimes[index]),
+                );
+              },
+            );
   }
 }

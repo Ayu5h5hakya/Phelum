@@ -66,8 +66,7 @@ class FirebaseMovieRepository extends MovieRepository {
     return new ParsedMoviesReponse(
         response.statusCode,
         list.map((element) {
-          return CinemaShow(element['cinema_name'], element['cinema_address'],
-              element['cinema_rating'], []);
+          return CinemaShow.fromJson(element);
         }).toList());
   }
 }
