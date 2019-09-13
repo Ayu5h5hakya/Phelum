@@ -53,9 +53,8 @@ class FirebaseMovieRepository extends MovieRepository {
 
   @override
   Future<ParsedMoviesReponse<List<CinemaShow>>> cinemaDetails(int id) async {
-    http.Response response = await http
-        .get(baseUrl + showsPath + jsonExt)
-        .catchError((err) {
+    http.Response response =
+        await http.get(baseUrl + showsPath + jsonExt).catchError((err) {
       print(err);
     });
     if (response == null) return new ParsedMoviesReponse(NO_INTERNET, []);

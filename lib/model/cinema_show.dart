@@ -1,49 +1,11 @@
 import 'package:meta/meta.dart';
-import '../entity/movie_entity.dart';
 
-/*
-0
-
-cinema_address:
-
-cinema_name:
-
-cinema_rating:
-
-show_time
-
-0:
-
-        1:
-
-1
-
-cinema_address:
-
-cinema_name:
-
-cinema_rating:
-
-show_time
-
-        0:
-
-2
-
-cinema_address:
-
-cinema_name:
-
-cinema_rating:
-
-show_time
-*/
 @immutable
 class CinemaShow {
   final String name;
   final String address;
   final double rating;
-  final List<String> showTimes;
+  final List<ShowtimeValue> showTimes;
 
   CinemaShow(
     this.name,
@@ -57,11 +19,30 @@ class CinemaShow {
     return 'CinemaShow {name : $name, address : $address, rating : $rating, showTimes : $showTimes, }';
   }
 
-  static CinemaShow fromJson(Map<String, Object> json) {
-    return CinemaShow(
-        json['cinema_name'] as String,
-        json['cinema_address'] as String,
-        json['cinema_rating'] as double,
-        List<String>.from(json['show_time']));
+  static CinemaShow fromJson(Map<String, Object> json) => CinemaShow(
+      json['cinema_name'] as String,
+      json['cinema_address'] as String,
+      json['cinema_rating'] as double,
+      _getShowTimes(json['show_time']));
+
+  static List<ShowtimeValue> _getShowTimes(Map<String, Object> json) {
+    List<ShowtimeValue> showTimes = [];
+    for (String key in json.keys) {
+      showTimes
+          .add(ShowtimeValue(date: key, times: List<String>.from(json[key])));
+    }
+    return showTimes;
   }
+}
+
+class ShowtimeValue {
+  final String date;
+  final List<String> times;
+
+  ShowtimeValue({this.date, this.times});
+
+  @override
+  String toString() => 'ShowTimeValue {date : $date, times : $times}';
+
+  List<String> getGridFriendlyList() => []..add(date)..addAll(times);
 }

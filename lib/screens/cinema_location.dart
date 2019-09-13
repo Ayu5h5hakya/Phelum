@@ -6,7 +6,9 @@ import 'package:phelum/bloc/cinemaShow/show_event.dart';
 import 'package:phelum/bloc/cinemaShow/show_state.dart';
 import 'package:phelum/colors.dart';
 import 'package:phelum/model/cinema_show.dart';
+import 'package:phelum/widgets/genre_tag.dart';
 import 'package:phelum/widgets/location_expansiontile.dart';
+import 'package:phelum/widgets/time_tag.dart';
 
 class CinemaLocation extends StatelessWidget {
   static const routeName = '/cinema_location';
@@ -50,13 +52,16 @@ class CinemaLocation extends StatelessWidget {
         return CinemaLocationTile(
           title: Text(
             shows[index].name,
-            style: TextStyle(color: Colors.white),),
+            style: TextStyle(color: Colors.white),
+          ),
           subtitle: Text(
             shows[index].address,
-            style: TextStyle(color: Colors.white),),
+            style: TextStyle(color: Colors.white),
+          ),
           trailing: Text(
             shows[index].rating.toString(),
-            style: TextStyle(color: Colors.white),),
+            style: TextStyle(color: Colors.white),
+          ),
           child: Container(
             child: _getShowCinemaTimes(shows[index]),
           ),
@@ -70,12 +75,44 @@ class CinemaLocation extends StatelessWidget {
       shrinkWrap: true,
       itemCount: show.showTimes.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(
-            show.showTimes[index],
-            style: TextStyle(color: Colors.white),),
-        );
+        return _getTimeGrid(show.showTimes[index].getGridFriendlyList());
       },
+    );
+  }
+
+  Widget _getTimeGrid(List<String> timeValues) {
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 5,
+      childAspectRatio: 1.6,
+      children: List.generate(timeValues.length, (index) {
+        if (index == 0) {
+          return GestureDetector(
+            child: Align(
+              child: Container(
+                margin: EdgeInsets.only(left: 16.0),
+                child: Text(
+                  timeValues[index],
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              alignment: Alignment.centerLeft,
+            ),
+            onTap: () {
+              print(index);
+            },
+          );
+        } else {
+          return GestureDetector(
+            child: TimeTag(
+              timeString: timeValues[index],
+            ),
+            onTap: () {
+              print(index);
+            },
+          );
+        }
+      }),
     );
   }
 }
