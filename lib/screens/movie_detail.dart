@@ -7,6 +7,7 @@ import 'package:phelum/bloc/detail/detail_state.dart';
 import 'package:phelum/bloc/movie/movie_bloc.dart';
 import 'package:phelum/bloc/movie/movie_state.dart';
 import 'package:phelum/colors.dart';
+import 'package:phelum/model/booking.dart';
 import 'package:phelum/model/movie.dart';
 import 'package:phelum/screens/cinema_location.dart';
 import 'package:phelum/screens/seat_reservation.dart';
@@ -50,8 +51,8 @@ class MovieDetail extends StatelessWidget {
     );
   }
 
-  void _gotoCinemaLocation(BuildContext context, int movieId) async {
-    await Navigator.pushNamed(context, CinemaLocation.routeName, arguments: movieId);
+  void _gotoCinemaLocation(BuildContext context, Booking booking) async {
+    await Navigator.pushNamed(context, CinemaLocation.routeName, arguments: booking);
   }
 
   Widget _displayMovieDetails(BuildContext context, Movie movie) => Scaffold(
@@ -110,7 +111,7 @@ class MovieDetail extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.event_seat),
           onPressed: () {
-            _gotoCinemaLocation(context, movie_id);
+            _gotoCinemaLocation(context, Booking(movieId: movie_id, movieName : movie.title, moviePoster: movie.posterLandscape));
           },
         ),
       );

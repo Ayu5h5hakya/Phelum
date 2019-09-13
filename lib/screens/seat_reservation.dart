@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:phelum/data/seat_repository.dart';
+import 'package:phelum/model/booking.dart';
 import 'package:phelum/model/selected_cinema.dart';
 import 'package:phelum/widgets/screen_label.dart';
 import 'package:phelum/widgets/seat_arrangement.dart';
@@ -12,8 +13,8 @@ class SeatReservationBooking extends StatelessWidget {
   static const routeName = '/seat_reservation_booking';
 
   final SeatRepository seatRepository;
-  final SelectedCinema selectedCinema;
-  SeatReservationBooking({this.seatRepository, this.selectedCinema});
+  final Booking booking;
+  SeatReservationBooking({this.seatRepository, this.booking});
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +33,15 @@ class SeatReservationBooking extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Joker',
+                        booking.movieName,
                         style: TextStyle(fontSize: 25, color: Colors.white),
                       ),
                       Text(
-                        'QFX cinemas, Labim mall, Audi 3',
+                        booking.cinemaName,
                         style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
                       Text(
-                        '12:30 PM',
+                        booking.movieTime,
                         style: TextStyle(fontSize: 15, color: Colors.white)
                       )
                     ],
@@ -49,7 +50,7 @@ class SeatReservationBooking extends StatelessWidget {
                 Opacity(
                   opacity: 0.15,
                   child: Image.network(
-                    "https://in.bmscdn.com/iedb/movies/images/mobile/listing/xxlarge/joker-et00100071-03-04-2019-10-23-41.jpg",
+                    booking.moviePoster,
                   ),
                 ),
               ],

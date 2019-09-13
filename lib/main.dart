@@ -50,9 +50,7 @@ class MyApp extends StatelessWidget {
   Widget _getMaterialApp() {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: wetasphalt
-      ),
+      theme: ThemeData(primaryColor: wetasphalt),
       home: MultiBlocProvider(
         providers: [
           BlocProvider<MovieBloc>(
@@ -66,21 +64,6 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case MovieDetail.routeName:
-            {
-              return MaterialPageRoute(builder: (context) {
-                return BlocProvider.value(
-                  value: detailBloc,
-                  child: MovieDetail(movie_id: settings.arguments),
-                );
-              });
-            }
-          case SeatReservationBooking.routeName:
-            {
-              return MaterialPageRoute(builder: (context) {
-                return SeatReservationBooking(seatRepository: seatRepository, selectedCinema : settings.arguments);
-              });
-            }
           case ProfileScreen.routeName:
             {
               return MaterialPageRoute(builder: (context) {
@@ -90,13 +73,30 @@ class MyApp extends StatelessWidget {
                 );
               });
             }
+          case MovieDetail.routeName:
+            {
+              return MaterialPageRoute(builder: (context) {
+                return BlocProvider.value(
+                  value: detailBloc,
+                  child: MovieDetail(movie_id: settings.arguments),
+                );
+              });
+            }
           case CinemaLocation.routeName:
             {
               return MaterialPageRoute(builder: (context) {
                 return BlocProvider.value(
                   value: showBloc,
-                  child: CinemaLocation(movie_id: settings.arguments),
+                  child: CinemaLocation(booking: settings.arguments),
                 );
+              });
+            }
+          case SeatReservationBooking.routeName:
+            {
+              return MaterialPageRoute(builder: (context) {
+                return SeatReservationBooking(
+                    seatRepository: seatRepository,
+                    booking: settings.arguments);
               });
             }
         }

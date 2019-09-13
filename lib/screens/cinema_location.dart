@@ -5,6 +5,7 @@ import 'package:phelum/bloc/cinemaShow/show_bloc.dart';
 import 'package:phelum/bloc/cinemaShow/show_event.dart';
 import 'package:phelum/bloc/cinemaShow/show_state.dart';
 import 'package:phelum/colors.dart';
+import 'package:phelum/model/booking.dart';
 import 'package:phelum/model/cinema_show.dart';
 import 'package:phelum/model/selected_cinema.dart';
 import 'package:phelum/screens/seat_reservation.dart';
@@ -14,14 +15,14 @@ import 'package:phelum/widgets/time_tag.dart';
 
 class CinemaLocation extends StatelessWidget {
   static const routeName = '/cinema_location';
-  final int movie_id;
+  final Booking booking;
 
-  CinemaLocation({this.movie_id});
+  CinemaLocation({this.booking});
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<ShowBloc>(context)
-      ..dispatch(LoadValidCinemas(movieId: movie_id));
+      ..dispatch(LoadValidCinemas(movieId: booking.movieId));
     return Scaffold(
         appBar: AppBar(
           title: Text('Cinemas'),
@@ -65,7 +66,8 @@ class CinemaLocation extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           child: Container(
-            child: _getShowCinemaTimes(context, index, shows[index]),
+            child:
+                _getShowCinemaTimes(context, shows[index].name, shows[index]),
           ),
         );
       },
@@ -73,19 +75,19 @@ class CinemaLocation extends StatelessWidget {
   }
 
   Widget _getShowCinemaTimes(
-      BuildContext context, int cinema_id, CinemaShow show) {
+      BuildContext context, String cinema, CinemaShow show) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: show.showTimes.length,
       itemBuilder: (context, index) {
         return _getTimeGrid(
-            context, cinema_id, show.showTimes[index].getGridFriendlyList());
+            context, cinema, show.showTimes[index].getGridFriendlyList());
       },
     );
   }
 
   Widget _getTimeGrid(
-      BuildContext context, int cinema_id, List<String> timeValues) {
+      BuildContext context, String cinema, List<String> timeValues) {
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 5,
@@ -109,7 +111,7 @@ class CinemaLocation extends StatelessWidget {
             ),
             onTap: () {
               print(index);
-              _gotoSeatBooking(context, cinema_id, timeValues.elementAt(index));
+              _gotoSeatBooking(context, cinema, timeValues.elementAt(index));
             },
           );
         }
@@ -118,8 +120,10 @@ class CinemaLocation extends StatelessWidget {
   }
 
   void _gotoSeatBooking(
-      BuildContext context, int cinema_id, String time_code) async {
+      BuildContext context, String cinema, String time_code) async {
+    booking.cinemaName = cinema;
+    booking.movieTime = time_code;
     await Navigator.pushNamed(context, SeatReservationBooking.routeName,
-        arguments: SelectedCinema(cinemaId: cinema_id, timeCode: time_code));
+        arguments: booking);
   }
 }
