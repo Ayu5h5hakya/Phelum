@@ -47,7 +47,7 @@ class SeatReservationBooking extends StatelessWidget {
                   ),
                 ),
                 Opacity(
-                  opacity: 0.2,
+                  opacity: 0.15,
                   child: Image.network(
                     "https://in.bmscdn.com/iedb/movies/images/mobile/listing/xxlarge/joker-et00100071-03-04-2019-10-23-41.jpg",
                   ),
