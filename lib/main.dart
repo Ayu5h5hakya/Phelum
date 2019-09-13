@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
           case SeatReservationBooking.routeName:
             {
               return MaterialPageRoute(builder: (context) {
-                return SeatReservationBooking(seatRepository: seatRepository);
+                return SeatReservationBooking(seatRepository: seatRepository, selectedCinema : settings.arguments);
               });
             }
           case ProfileScreen.routeName:

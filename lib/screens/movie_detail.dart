@@ -50,8 +50,8 @@ class MovieDetail extends StatelessWidget {
     );
   }
 
-  void _gotoSeatBooking(BuildContext context) async {
-    await Navigator.pushNamed(context, CinemaLocation.routeName);
+  void _gotoCinemaLocation(BuildContext context, int movieId) async {
+    await Navigator.pushNamed(context, CinemaLocation.routeName, arguments: movieId);
   }
 
   Widget _displayMovieDetails(BuildContext context, Movie movie) => Scaffold(
@@ -110,7 +110,7 @@ class MovieDetail extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.event_seat),
           onPressed: () {
-            _gotoSeatBooking(context);
+            _gotoCinemaLocation(context, movie_id);
           },
         ),
       );

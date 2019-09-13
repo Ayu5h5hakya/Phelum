@@ -23,7 +23,7 @@ class CinemaShow {
       json['cinema_name'] as String,
       json['cinema_address'] as String,
       json['cinema_rating'] as double,
-      _getShowTimes(json['show_time']));
+      _getShowTimes(json['show_times']));
 
   static List<ShowtimeValue> _getShowTimes(Map<String, Object> json) {
     List<ShowtimeValue> showTimes = [];

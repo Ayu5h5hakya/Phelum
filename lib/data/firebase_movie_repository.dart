@@ -8,11 +8,11 @@ import 'package:phelum/model/movie.dart';
 import 'package:http/http.dart' as http;
 
 class FirebaseMovieRepository extends MovieRepository {
-  static final baseUrl = 'https://coviva-6c25f.firebaseio.com/';
+  static final baseUrl = 'https://coviva-6c25f.firebaseio.com/phelum/';
   static final jsonExt = '.json';
   static final dashboardPath = 'dashboard';
   static final moviePath = 'movies';
-  static final showsPath = 'shows';
+  static final showsPath = 'cinemas';
 
   @override
   Future<ParsedMoviesReponse<List<DashboardItem>>> movies() async {
@@ -54,7 +54,7 @@ class FirebaseMovieRepository extends MovieRepository {
   @override
   Future<ParsedMoviesReponse<List<CinemaShow>>> cinemaDetails(int id) async {
     http.Response response =
-        await http.get(baseUrl + showsPath + jsonExt).catchError((err) {
+        await http.get(baseUrl + showsPath +'/$id'+ jsonExt).catchError((err) {
       print(err);
     });
     if (response == null) return new ParsedMoviesReponse(NO_INTERNET, []);

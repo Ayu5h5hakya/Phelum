@@ -6,6 +6,8 @@ import 'package:phelum/bloc/cinemaShow/show_event.dart';
 import 'package:phelum/bloc/cinemaShow/show_state.dart';
 import 'package:phelum/colors.dart';
 import 'package:phelum/model/cinema_show.dart';
+import 'package:phelum/model/selected_cinema.dart';
+import 'package:phelum/screens/seat_reservation.dart';
 import 'package:phelum/widgets/genre_tag.dart';
 import 'package:phelum/widgets/location_expansiontile.dart';
 import 'package:phelum/widgets/time_tag.dart';
@@ -36,7 +38,7 @@ class CinemaLocation extends StatelessWidget {
             } else if (state is CinemaShowLoaded) {
               return Container(
                 color: midnightblue,
-                child: _getShowCinemas(state.cinemaDetail.body),
+                child: _getShowCinemas(context, state.cinemaDetail.body),
               );
             } else {
               return Text('err');
@@ -45,7 +47,7 @@ class CinemaLocation extends StatelessWidget {
         ));
   }
 
-  Widget _getShowCinemas(List<CinemaShow> shows) {
+  Widget _getShowCinemas(BuildContext context, List<CinemaShow> shows) {
     return ListView.builder(
       itemCount: shows.length,
       itemBuilder: (context, index) {
@@ -63,44 +65,42 @@ class CinemaLocation extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           child: Container(
-            child: _getShowCinemaTimes(shows[index]),
+            child: _getShowCinemaTimes(context, index, shows[index]),
           ),
         );
       },
     );
   }
 
-  Widget _getShowCinemaTimes(CinemaShow show) {
+  Widget _getShowCinemaTimes(
+      BuildContext context, int cinema_id, CinemaShow show) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: show.showTimes.length,
       itemBuilder: (context, index) {
-        return _getTimeGrid(show.showTimes[index].getGridFriendlyList());
+        return _getTimeGrid(
+            context, cinema_id, show.showTimes[index].getGridFriendlyList());
       },
     );
   }
 
-  Widget _getTimeGrid(List<String> timeValues) {
+  Widget _getTimeGrid(
+      BuildContext context, int cinema_id, List<String> timeValues) {
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 5,
       childAspectRatio: 1.6,
       children: List.generate(timeValues.length, (index) {
         if (index == 0) {
-          return GestureDetector(
-            child: Align(
-              child: Container(
-                margin: EdgeInsets.only(left: 16.0),
-                child: Text(
-                  timeValues[index],
-                  style: TextStyle(color: Colors.white),
-                ),
+          return Align(
+            child: Container(
+              margin: EdgeInsets.only(left: 16.0),
+              child: Text(
+                timeValues[index],
+                style: TextStyle(color: Colors.white),
               ),
-              alignment: Alignment.centerLeft,
             ),
-            onTap: () {
-              print(index);
-            },
+            alignment: Alignment.centerLeft,
           );
         } else {
           return GestureDetector(
@@ -109,10 +109,17 @@ class CinemaLocation extends StatelessWidget {
             ),
             onTap: () {
               print(index);
+              _gotoSeatBooking(context, cinema_id, timeValues.elementAt(index));
             },
           );
         }
       }),
     );
+  }
+
+  void _gotoSeatBooking(
+      BuildContext context, int cinema_id, String time_code) async {
+    await Navigator.pushNamed(context, SeatReservationBooking.routeName,
+        arguments: SelectedCinema(cinemaId: cinema_id, timeCode: time_code));
   }
 }
