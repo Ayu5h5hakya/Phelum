@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:phelum/data/repository.dart';
-import 'package:phelum/model/cinema_show.dart';
+import 'package:phelum/model/show_schedule.dart';
 
 @immutable
 abstract class CinemaState extends Equatable {
@@ -14,7 +14,7 @@ class CinemaShowLoading extends CinemaState {
 }
 
 class CinemaShowLoaded extends CinemaState {
-  final ParsedMoviesReponse<List<CinemaShow>> cinemaDetail;
+  final ParsedMoviesReponse<List<ShowSchedule>> cinemaDetail;
 
   CinemaShowLoaded([this.cinemaDetail]) : super([cinemaDetail]);
 

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:phelum/data/repository.dart';
 import 'package:phelum/entity/movie_entity.dart';
-import 'package:phelum/model/cinema_show.dart';
 import 'package:phelum/model/dashboard_item.dart';
 import 'package:phelum/model/movie.dart';
 import 'package:http/http.dart' as http;
+import 'package:phelum/model/show_schedule.dart';
 
 class FirebaseMovieRepository extends MovieRepository {
   static final baseUrl = 'https://coviva-6c25f.firebaseio.com/phelum/';
@@ -52,7 +52,7 @@ class FirebaseMovieRepository extends MovieRepository {
   }
 
   @override
-  Future<ParsedMoviesReponse<List<CinemaShow>>> cinemaDetails(int id) async {
+  Future<ParsedMoviesReponse<List<ShowSchedule>>> cinemaDetails(int id) async {
     http.Response response =
         await http.get(baseUrl + showsPath +'/$id'+ jsonExt).catchError((err) {
       print(err);
@@ -62,10 +62,20 @@ class FirebaseMovieRepository extends MovieRepository {
       return new ParsedMoviesReponse(response.statusCode, []);
     final list = json.decode(response.body) as List;
     print(list);
-    return new ParsedMoviesReponse(
-        response.statusCode,
-        list.map((element) {
-          return CinemaShow.fromJson(element);
-        }).toList());
+
+    List<ShowSchedule> result = [];
+    for(Map<String, Object> element in list){
+      result.add(CinemaData.fromJson(element));
+      (element['show_times'] as Map<String, Object>).forEach((key, value){
+        result.add(
+          DateTimeData(
+            cinemaName : element['cinema_name'],
+            showTime: ShowtimeValue(
+              date: key, 
+              times: List<String>.from(value)
+              )));
+      });
+    }
+    return ParsedMoviesReponse(response.statusCode, result);
   }
 }

@@ -6,11 +6,8 @@ import 'package:phelum/bloc/cinemaShow/show_event.dart';
 import 'package:phelum/bloc/cinemaShow/show_state.dart';
 import 'package:phelum/colors.dart';
 import 'package:phelum/model/booking.dart';
-import 'package:phelum/model/cinema_show.dart';
-import 'package:phelum/model/selected_cinema.dart';
+import 'package:phelum/model/show_schedule.dart';
 import 'package:phelum/screens/seat_reservation.dart';
-import 'package:phelum/widgets/genre_tag.dart';
-import 'package:phelum/widgets/location_expansiontile.dart';
 import 'package:phelum/widgets/time_tag.dart';
 
 class CinemaLocation extends StatelessWidget {
@@ -43,40 +40,32 @@ class CinemaLocation extends StatelessWidget {
         ));
   }
 
-  Widget _getShowCinemas(BuildContext context, List<CinemaShow> shows) {
+  Widget _getShowCinemas(BuildContext context, List<ShowSchedule> shows) {
     return ListView.builder(
       itemCount: shows.length,
       itemBuilder: (context, index) {
-        return CinemaLocationTile(
-          title: Text(
-            shows[index].name,
-            style: TextStyle(color: Colors.white),
-          ),
-          subtitle: Text(
-            shows[index].address,
-            style: TextStyle(color: Colors.white),
-          ),
-          trailing: Text(
-            shows[index].rating.toString(),
-            style: TextStyle(color: Colors.white),
-          ),
-          child: Container(
-            child:
-                _getShowCinemaTimes(context, shows[index].name, shows[index]),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _getShowCinemaTimes(
-      BuildContext context, String cinema, CinemaShow show) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: show.showTimes.length,
-      itemBuilder: (context, index) {
-        return _getTimeGrid(
-            context, cinema, show.showTimes[index].getGridFriendlyList());
+        if (shows.elementAt(index) is CinemaData) {
+          return ListTile(
+              title: Text(
+                shows.elementAt(index).cinemaName,
+                style: TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(
+                (shows.elementAt(index) as CinemaData).address,
+                style: TextStyle(color: Colors.white),
+              ),
+              trailing: Text(
+                (shows.elementAt(index) as CinemaData).rating.toString(),
+                style: TextStyle(color: Colors.white),
+              ));
+        } else if (shows.elementAt(index) is DateTimeData) {
+          return _getTimeGrid(
+              context,
+              (shows.elementAt(index) as DateTimeData).cinemaName,
+              (shows.elementAt(index) as DateTimeData)
+                  .showTime
+                  .getGridFriendlyList());
+        }
       },
     );
   }
