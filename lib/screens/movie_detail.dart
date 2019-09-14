@@ -111,7 +111,15 @@ class MovieDetail extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.event_seat),
           onPressed: () {
-            _gotoCinemaLocation(context, Booking(movieId: movie_id, movieName : movie.title, moviePoster: movie.posterLandscape));
+            _gotoCinemaLocation(context, Booking(
+              movieId: movie_id, 
+              movieName : movie.title,
+              moviePoster: movie.posterLandscape,
+              rating: movie.rating,
+              movieGenre: movie.genre.fold("", (previous, current){
+                if(previous.isEmpty) return current;
+                else return previous + "|" + current;
+              })));
           },
         ),
       );

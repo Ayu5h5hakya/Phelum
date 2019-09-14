@@ -111,7 +111,7 @@ class CinemaLocation extends StatelessWidget {
             ),
             onTap: () {
               print(index);
-              _gotoSeatBooking(context, cinema, timeValues.elementAt(index));
+              _gotoSeatBooking(context, cinema, timeValues.elementAt(0), timeValues.elementAt(index));
             },
           );
         }
@@ -120,9 +120,10 @@ class CinemaLocation extends StatelessWidget {
   }
 
   void _gotoSeatBooking(
-      BuildContext context, String cinema, String time_code) async {
+      BuildContext context, String cinema, String date, String time_code) async {
     booking.cinemaName = cinema;
     booking.movieTime = time_code;
+    booking.movieDate = date;
     await Navigator.pushNamed(context, SeatReservationBooking.routeName,
         arguments: booking);
   }

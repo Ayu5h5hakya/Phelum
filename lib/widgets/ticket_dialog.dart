@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:phelum/model/booking.dart';
 
 class TicketDialog extends StatelessWidget {
-  final String title, description, buttonText;
-  final Image image;
+  final Booking booking;
 
   TicketDialog(
-      {@required this.title,
-      @required this.description,
-      @required this.buttonText,
-      this.image});
+      {@required this.booking});
 
   @override
   Widget build(BuildContext context) => Dialog(
@@ -48,15 +45,15 @@ class TicketDialog extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Joker",
+            booking.movieName,
             style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
           ),
           Text(
-            "Crime | Drama | Thriller",
+            booking.movieGenre,
             style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
           ),
           Text(
-            "8.8",
+            booking.rating.toString(),
           ),
           SizedBox(
             height: 24.0,
@@ -66,7 +63,7 @@ class TicketDialog extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
           ),
           Text(
-            "QFX cinemas, labim mall",
+            booking.cinemaName,
           ),
           SizedBox(
             height: 24.0,
@@ -76,7 +73,7 @@ class TicketDialog extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
           ),
           Text(
-            "Friday, 28 June | 12:30 PM",
+            "${booking.movieDate} | ${booking.movieTime}",
           ),
           SizedBox(
             height: 24.0,
@@ -86,7 +83,7 @@ class TicketDialog extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
           ),
           Text(
-            "G8, H7, H8, H9",
+            booking.seats,
           ),
           SizedBox(
             height: 24.0,
@@ -116,7 +113,7 @@ class TicketDialog extends StatelessWidget {
                         TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
                   ),
                   Text(
-                    "\$20.0",
+                    "\$${booking.price}",
                     style: TextStyle(color: Colors.red),
                   ),
                 ],

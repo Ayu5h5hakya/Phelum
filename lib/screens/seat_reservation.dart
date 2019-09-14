@@ -14,6 +14,7 @@ import '../colors.dart';
 class SeatReservationBooking extends StatelessWidget {
   static const routeName = '/seat_reservation_booking';
   ValueNotifier<double> totalPrice = ValueNotifier(0.0);
+  List<int> seats = [];
   final SeatRepository seatRepository;
   final Booking booking;
   SeatReservationBooking({this.seatRepository, this.booking});
@@ -59,8 +60,9 @@ class SeatReservationBooking extends StatelessWidget {
               Container(
                 child: SeatingArrangement(
                   seatRepository: seatRepository,
-                  onSeatSelected: (price) {
-                    totalPrice.value =totalPrice.value + price;
+                  onSeatSelected: (index, price) {
+                    totalPrice.value = totalPrice.value + price;
+                    seats.add(index);
                   },
                 ),
                 margin: EdgeInsets.all(13.0),
@@ -70,26 +72,29 @@ class SeatReservationBooking extends StatelessWidget {
               SeatingLegend(),
               ScreenLabel(),
               Container(
-                margin: EdgeInsets.all(5.0),
-                color: Colors.blueAccent,
-                child: ValueListenableBuilder<double>(
-                  valueListenable: totalPrice,
-                  builder: (context, value, child){
-                    return CheckoutButton(
-                      price : value,
-                      onCheckout: (){
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => TicketDialog(
-                            title: "Success",
-                            description: "Testing this",
-                            buttonText: "Okay",
-                          )
-                        );
-                      },);
-                  },
-                )
-              )
+                  margin: EdgeInsets.all(5.0),
+                  color: Colors.blueAccent,
+                  child: ValueListenableBuilder<double>(
+                    valueListenable: totalPrice,
+                    builder: (context, value, child) {
+                      return CheckoutButton(
+                        price: value,
+                        onCheckout: () {
+                          if (totalPrice.value != 0.0) {
+                            booking.seats = seats.fold("", (p,c){
+                              if(p.isEmpty) return c.toString();
+                              else return p +","+ c.toString();});
+                            booking.price = totalPrice.value.toString();
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => TicketDialog(
+                                      booking: booking,
+                                    ));
+                          }
+                        },
+                      );
+                    },
+                  ))
             ],
           ),
         ),

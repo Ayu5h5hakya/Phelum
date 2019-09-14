@@ -10,7 +10,7 @@ class SeatingArrangement extends StatefulWidget {
   final int columnCount = 13;
   List<Color> colors;
   final SeatRepository seatRepository;
-  final Function(double) onSeatSelected;
+  final Function(int, double) onSeatSelected;
 
   SeatingArrangement({this.seatRepository, this.onSeatSelected}){
     colors = List.generate(rowCount * columnCount, (index){
@@ -49,7 +49,7 @@ class SeatState extends State<SeatingArrangement> {
         onTap: () {
           print(index);
           widget.seatRepository.addSeat(index, 0);
-          widget.onSeatSelected(5);
+          widget.onSeatSelected(index,5);
         },
         );
       }),
