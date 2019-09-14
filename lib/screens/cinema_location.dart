@@ -27,20 +27,15 @@ class CinemaLocation extends StatelessWidget {
         appBar: AppBar(
           title: Text('Cinemas'),
         ),
+        backgroundColor: midnightblue,
         body: BlocBuilder<ShowBloc, CinemaState>(
           builder: (context, state) {
             if (state is CinemaShowLoading) {
-              return Container(
-                color: midnightblue,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+              return Center(
+                child: CircularProgressIndicator(),
               );
             } else if (state is CinemaShowLoaded) {
-              return Container(
-                color: midnightblue,
-                child: _getShowCinemas(context, state.cinemaDetail.body),
-              );
+              return _getShowCinemas(context, state.cinemaDetail.body);
             } else {
               return Text('err');
             }
@@ -111,7 +106,8 @@ class CinemaLocation extends StatelessWidget {
             ),
             onTap: () {
               print(index);
-              _gotoSeatBooking(context, cinema, timeValues.elementAt(0), timeValues.elementAt(index));
+              _gotoSeatBooking(context, cinema, timeValues.elementAt(0),
+                  timeValues.elementAt(index));
             },
           );
         }
@@ -119,8 +115,8 @@ class CinemaLocation extends StatelessWidget {
     );
   }
 
-  void _gotoSeatBooking(
-      BuildContext context, String cinema, String date, String time_code) async {
+  void _gotoSeatBooking(BuildContext context, String cinema, String date,
+      String time_code) async {
     booking.cinemaName = cinema;
     booking.movieTime = time_code;
     booking.movieDate = date;

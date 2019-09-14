@@ -15,7 +15,8 @@ class Dashboard extends StatefulWidget {
   DashboardState createState() => DashboardState();
 
   void _gotoDetails(BuildContext context, int itemId) async {
-    await Navigator.pushNamed(context, MovieDetail.routeName, arguments: itemId);
+    await Navigator.pushNamed(context, MovieDetail.routeName,
+        arguments: itemId);
   }
 
   void _gotoProfile(BuildContext context) async {
@@ -37,7 +38,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class DashboardState extends State<Dashboard> {
-
   @override
   void initState() {
     super.initState();
@@ -77,10 +77,8 @@ class DashboardState extends State<Dashboard> {
                 )
               ],
             ),
-            body: Container(
-              color: midnightblue,
-              child: widget._getMoviePages(state),
-            ),
+            backgroundColor: midnightblue,
+            body: widget._getMoviePages(state),
           );
         }
       },
