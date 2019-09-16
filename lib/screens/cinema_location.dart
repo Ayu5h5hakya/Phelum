@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:phelum/bloc/auth/auth_bloc.dart';
 import 'package:phelum/bloc/cinemaShow/show_bloc.dart';
 import 'package:phelum/bloc/cinemaShow/show_event.dart';
 import 'package:phelum/bloc/cinemaShow/show_state.dart';
@@ -8,6 +9,7 @@ import 'package:phelum/colors.dart';
 import 'package:phelum/model/booking.dart';
 import 'package:phelum/model/show_schedule.dart';
 import 'package:phelum/screens/seat_reservation.dart';
+import 'package:phelum/widgets/checkout_navigation_wrapper.dart';
 import 'package:phelum/widgets/time_tag.dart';
 
 class CinemaLocation extends StatelessWidget {
@@ -109,7 +111,7 @@ class CinemaLocation extends StatelessWidget {
     booking.cinemaName = cinema;
     booking.movieTime = time_code;
     booking.movieDate = date;
-    await Navigator.pushNamed(context, SeatReservationBooking.routeName,
+    await Navigator.pushNamed(context, CheckoutavigationWrapper.routeName,
         arguments: booking);
   }
 }

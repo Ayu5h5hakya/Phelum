@@ -14,9 +14,12 @@ import 'package:phelum/data/seat_repository.dart';
 import 'package:phelum/model/cinema_show.dart';
 import 'package:phelum/screens/cinema_location.dart';
 import 'package:phelum/screens/dashboard.dart';
+import 'package:phelum/screens/login.dart';
 import 'package:phelum/screens/movie_detail.dart';
-import 'package:phelum/screens/profile.dart';
 import 'package:phelum/screens/seat_reservation.dart';
+import 'package:phelum/widgets/checkout_navigation_wrapper.dart';
+
+import 'bloc/auth/auth_state.dart';
 
 void main() => runApp(MyApp());
 
@@ -64,12 +67,15 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case ProfileScreen.routeName:
+          case CheckoutavigationWrapper.routeName:
             {
               return MaterialPageRoute(builder: (context) {
                 return BlocProvider.value(
                   value: loginBloc,
-                  child: ProfileScreen(),
+                  child: CheckoutavigationWrapper(
+                    seatRepository: seatRepository,
+                    booking: settings.arguments
+                  ),
                 );
               });
             }
@@ -89,14 +95,6 @@ class MyApp extends StatelessWidget {
                   value: showBloc,
                   child: CinemaLocation(booking: settings.arguments),
                 );
-              });
-            }
-          case SeatReservationBooking.routeName:
-            {
-              return MaterialPageRoute(builder: (context) {
-                return SeatReservationBooking(
-                    seatRepository: seatRepository,
-                    booking: settings.arguments);
               });
             }
         }
