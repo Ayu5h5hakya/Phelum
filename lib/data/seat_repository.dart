@@ -18,6 +18,7 @@ class SeatRepository extends SyncRepository {
     }).then((_){
       
     });
+    return null;
   }
   
   

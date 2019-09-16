@@ -4,9 +4,10 @@ import 'package:phelum/model/booking.dart';
 
 class TicketDialog extends StatelessWidget {
   final Booking booking;
+  Function onConfirmationClicked;
 
   TicketDialog(
-      {@required this.booking});
+      {@required this.booking,@required this.onConfirmationClicked});
 
   @override
   Widget build(BuildContext context) => Dialog(
@@ -129,6 +130,7 @@ class TicketDialog extends StatelessWidget {
               child: Icon(Icons.check),
               onPressed: () {
                 Navigator.of(context).pop();
+                onConfirmationClicked();
               },
             ),
           )

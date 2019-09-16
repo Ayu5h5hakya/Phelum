@@ -9,6 +9,7 @@ class Booking {
   String seats;
   String price;
   double rating;
+  String userName;
 
   Booking(
       {this.movieId,
@@ -20,6 +21,7 @@ class Booking {
       this.movieGenre,
       this.seats,
       this.price,
-      this.rating
+      this.rating,
+      this.userName
       });
 }

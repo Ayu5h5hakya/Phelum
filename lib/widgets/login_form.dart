@@ -5,6 +5,7 @@ import 'package:phelum/bloc/auth/auth_event.dart';
 import 'package:phelum/bloc/login/login_bloc.dart';
 import 'package:phelum/bloc/login/login_event.dart';
 import 'package:phelum/bloc/login/login_state.dart';
+import 'package:phelum/colors.dart';
 import 'package:phelum/widgets/login_button.dart';
 
 class LoginForm extends StatefulWidget {
@@ -33,13 +34,24 @@ class LoginFormState extends State<LoginForm> {
         if (state.isSuccess) {
           BlocProvider.of<AuthenticationBloc>(context).dispatch(LoggedIn());
         }
-        if (state.isFailure) {_showError();}
+        if (state.isFailure) {
+          _showError();
+        }
         if (state.isSubmitting) {
           _showProgress();
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
-        builder: (context, state) => _getLoginFormBody(),
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+            ),
+            backgroundColor: midnightblue,
+            body: _getLoginFormBody(),
+          );
+        },
       ),
     );
   }

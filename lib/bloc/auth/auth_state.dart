@@ -11,6 +11,16 @@ class Uninitializaed extends AuthState {
   String toString() => 'Uninitialized';
 }
 
+class ConfirmingBooking extends AuthState {
+  @override
+  String toString() => 'ConfirmingBooking';
+}
+
+class ConfirmationComplete extends AuthState {
+  @override
+  String toString() => 'ConfirmationComplete';
+}
+
 class Authenticated extends AuthState {
   String displayName;
 

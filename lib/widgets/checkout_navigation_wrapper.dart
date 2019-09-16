@@ -4,8 +4,8 @@ import 'package:phelum/bloc/auth/auth_bloc.dart';
 import 'package:phelum/bloc/auth/auth_state.dart';
 import 'package:phelum/data/seat_repository.dart';
 import 'package:phelum/model/booking.dart';
-import 'package:phelum/screens/login.dart';
 import 'package:phelum/screens/seat_reservation.dart';
+import 'package:phelum/widgets/login_form.dart';
 
 class CheckoutavigationWrapper extends StatelessWidget {
   static const routeName = '/checkoutNav';
@@ -18,9 +18,10 @@ class CheckoutavigationWrapper extends StatelessWidget {
     return BlocBuilder<AuthenticationBloc, AuthState>(
       builder: (context, state) {
         if (state is Authenticated) {
+          booking.userName = state.displayName;
           return SeatReservationBooking(seatRepository: seatRepository, booking: booking,);
         } else {
-          return LoginScreen();
+          return LoginForm();
         }
       },
     );

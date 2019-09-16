@@ -14,7 +14,6 @@ import 'package:phelum/data/seat_repository.dart';
 import 'package:phelum/model/cinema_show.dart';
 import 'package:phelum/screens/cinema_location.dart';
 import 'package:phelum/screens/dashboard.dart';
-import 'package:phelum/screens/login.dart';
 import 'package:phelum/screens/movie_detail.dart';
 import 'package:phelum/screens/seat_reservation.dart';
 import 'package:phelum/widgets/checkout_navigation_wrapper.dart';
