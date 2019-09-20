@@ -12,7 +12,6 @@ class RatingProviderTag extends StatelessWidget {
         'IMDB',
         style: TextStyle(
           fontSize: 13,
-          color: Colors.white
         ),),
       decoration: BoxDecoration(
         color: lightgreenishblue,

@@ -49,14 +49,19 @@ class MyApp extends StatelessWidget {
       builder: (context) =>
           AuthenticationBloc(firebaseUserRepository: firebaseUserRepository)
             ..dispatch(AppStarted()),
-      child: _getMaterialApp(),
+      child: _getMaterialApp(context),
     );
   }
 
-  Widget _getMaterialApp() {
+  Widget _getMaterialApp(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(primaryColor: wetasphalt),
+      theme: ThemeData(
+        primaryColor: wetasphalt,
+        textTheme: Theme.of(context).textTheme.apply(
+          bodyColor: Colors.white,
+          
+        )),
       home: MultiBlocProvider(
         providers: [
           BlocProvider<MovieBloc>(

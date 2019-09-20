@@ -17,7 +17,6 @@ class SeatingLegend extends StatelessWidget {
             ),
             Text(
               'Available',
-              style: TextStyle(color: Colors.white),
             )
           ],
         ),
@@ -31,7 +30,6 @@ class SeatingLegend extends StatelessWidget {
             ),
             Text(
               'Selected',
-              style: TextStyle(color: Colors.white),
             )
           ],
         ),
@@ -45,7 +43,6 @@ class SeatingLegend extends StatelessWidget {
             ),
             Text(
               'Sold',
-              style: TextStyle(color: Colors.white),
             )
           ],
         ),

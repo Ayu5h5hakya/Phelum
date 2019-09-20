@@ -24,15 +24,6 @@ class TicketDialog extends StatelessWidget {
     );
   }
 
-  Widget avatarContent(BuildContext context) => Positioned(
-        left: 16.0,
-        right: 16.0,
-        child: CircleAvatar(
-          backgroundColor: Colors.blueAccent,
-          radius: 66.0,
-        ),
-      );
-
   Widget cardContent(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
@@ -47,44 +38,48 @@ class TicketDialog extends StatelessWidget {
         children: <Widget>[
           Text(
             booking.movieName,
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700),
+            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700, color: Colors.black),
           ),
           Text(
             booking.movieGenre,
-            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
+            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0, color: Colors.black),
           ),
           Text(
             booking.rating.toString(),
+            style: TextStyle(color: Colors.black),
           ),
           SizedBox(
             height: 24.0,
           ),
           Text(
             "Cinemas",
-            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
+            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0, color: Colors.black),
           ),
           Text(
             booking.cinemaName,
+            style: TextStyle(color: Colors.black),
           ),
           SizedBox(
             height: 24.0,
           ),
           Text(
             "Date | Time",
-            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
+            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0, color: Colors.black),
           ),
           Text(
             "${booking.movieDate} | ${booking.movieTime}",
+            style: TextStyle(color: Colors.black),
           ),
           SizedBox(
             height: 24.0,
           ),
           Text(
             "Seats",
-            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
+            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0, color: Colors.black),
           ),
           Text(
             booking.seats,
+            style: TextStyle(color: Colors.black),
           ),
           SizedBox(
             height: 24.0,
@@ -98,10 +93,11 @@ class TicketDialog extends StatelessWidget {
                   Text(
                     "Ticket ID",
                     style:
-                        TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
+                        TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0, color: Colors.black),
                   ),
                   Text(
                     "QFX 9899 AYUSH 6152",
+                    style: TextStyle(color: Colors.black),
                   ),
                 ],
               ),
@@ -111,7 +107,7 @@ class TicketDialog extends StatelessWidget {
                   Text(
                     "Price",
                     style:
-                        TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0),
+                        TextStyle(fontWeight: FontWeight.w300, fontSize: 14.0, color: Colors.black),
                   ),
                   Text(
                     "\$${booking.price}",

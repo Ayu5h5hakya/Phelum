@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:phelum/colors.dart';
-import 'package:phelum/widgets/Genre_painter.dart';
 
 class GenreTag extends StatelessWidget {
   String tagName;
@@ -15,7 +14,8 @@ class GenreTag extends StatelessWidget {
       padding: EdgeInsets.all(5.0),
       decoration: BoxDecoration(color: brightyarrow),
       child: Text(
-        tagName, 
+        tagName,
+        style: TextStyle(color: Colors.black), 
       ),
     );
   }

@@ -8,10 +8,7 @@ class ScreenLabel extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text(
-            'Screen',
-            style: TextStyle(
-              color: Colors.white
-            ),),
+            'Screen',),
           Container(
             margin: EdgeInsets.only(top: 10.0),
             width: 350,

@@ -58,14 +58,14 @@ class SeatReservationBooking extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           booking.movieName,
-                          style: TextStyle(fontSize: 25, color: Colors.white),
+                          style: TextStyle(fontSize: 25),
                         ),
                         Text(
                           booking.cinemaName,
-                          style: TextStyle(fontSize: 15, color: Colors.white),
+                          style: TextStyle(fontSize: 15),
                         ),
                         Text(booking.movieTime,
-                            style: TextStyle(fontSize: 15, color: Colors.white))
+                            style: TextStyle(fontSize: 15))
                       ],
                     ),
                   ),

@@ -16,11 +16,11 @@ class SynopsisWidget extends StatelessWidget {
             margin: EdgeInsets.all(10.0),
             child: Text('SYNOPSIS',
                 textAlign: TextAlign.right,
-                style: TextStyle(fontSize: 20, color: Colors.white)),
+                style: TextStyle(fontSize: 20)),
           ),
           Text(
             value,
-            style: TextStyle(fontSize: 16, color: Colors.white),
+            style: TextStyle(fontSize: 16),
             textAlign: TextAlign.center,
           )
         ],

@@ -12,7 +12,7 @@ class RatingWidget extends StatelessWidget {
       children: <Widget>[
         Text(
           '$rating',
-          style: TextStyle(color: Colors.white, fontSize: 40),
+          style: TextStyle(fontSize: 40),
         ),
         RatingProviderTag()
       ],

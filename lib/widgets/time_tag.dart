@@ -13,7 +13,13 @@ class TimeTag extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(10.0),
       decoration: BoxDecoration(color: brightyarrow),
-      child: Align(child: Text(timeString),alignment: Alignment.center,),
+      child: Align(
+        child: Text(
+          timeString,
+          style: TextStyle(color: Colors.black),
+        ),
+        alignment: Alignment.center,
+      ),
     );
   }
 }

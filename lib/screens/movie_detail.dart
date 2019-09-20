@@ -98,7 +98,7 @@ class MovieDetail extends StatelessWidget {
                       RatingWidget(rating: movie.rating,),
                       Text(
                         movie.pRating,
-                        style: TextStyle(color: Colors.white, fontSize: 40),
+                        style: TextStyle(fontSize: 40),
                       )
                     ],
                   ),

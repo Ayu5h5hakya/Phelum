@@ -12,9 +12,8 @@ class CheckoutButton extends StatelessWidget {
       child: ListTile(
         title: Text(
           'Checkout',
-          style: TextStyle(color: Colors.white),
         ),
-        trailing: Text('\$$price', style: TextStyle(color: Colors.white)),
+        trailing: Text('\$$price'),
       ),
     );
   }

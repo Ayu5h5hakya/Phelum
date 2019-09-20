@@ -50,15 +50,12 @@ class CinemaLocation extends StatelessWidget {
           return ListTile(
               title: Text(
                 shows.elementAt(index).cinemaName,
-                style: TextStyle(color: Colors.white),
               ),
               subtitle: Text(
-                (shows.elementAt(index) as CinemaData).address,
-                style: TextStyle(color: Colors.white),
+                (shows.elementAt(index) as CinemaData).address, style: TextStyle(color: Colors.white), // Global theming does not work for subtitles in listtile ??
               ),
               trailing: Text(
                 (shows.elementAt(index) as CinemaData).rating.toString(),
-                style: TextStyle(color: Colors.white),
               ));
         } else if (shows.elementAt(index) is DateTimeData) {
           return _getTimeGrid(
@@ -85,7 +82,6 @@ class CinemaLocation extends StatelessWidget {
               margin: EdgeInsets.only(left: 16.0),
               child: Text(
                 timeValues[index],
-                style: TextStyle(color: Colors.white),
               ),
             ),
             alignment: Alignment.centerLeft,
