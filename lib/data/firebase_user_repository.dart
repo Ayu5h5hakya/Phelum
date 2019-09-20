@@ -1,19 +1,28 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:phelum/data/auth_repository.dart';
+import 'package:phelum/data/repository.dart';
 import 'package:phelum/model/booking.dart';
+import 'package:http/http.dart' as http;
+import 'package:phelum/model/user_profile.dart';
 
 class FirebaseUserRepository extends UserRepository {
   FirebaseAuth firebaseAuth;
   FirebaseDatabase firebaseDatabase;
-  DatabaseReference profileDB;
+  DatabaseReference confirmationsDB, profileDB;
+  static final baseUrl = 'https://coviva-6c25f.firebaseio.com/phelum/';
+  static final jsonExt = '.json';
+  static final profilePath = 'profile';
 
   FirebaseUserRepository(
       {FirebaseAuth firebaseAuth, FirebaseDatabase firebaseDatabase}) {
     this.firebaseAuth = FirebaseAuth.instance;
     this.firebaseDatabase = FirebaseDatabase.instance;
-    profileDB =
+    confirmationsDB =
         this.firebaseDatabase.reference().child('phelum/profile/confirmations');
+    profileDB = this.firebaseDatabase.reference().child('phelum/profile');
   }
 
   @override
@@ -50,5 +59,21 @@ class FirebaseUserRepository extends UserRepository {
       'user_name': booking.userName
     }).then((_) {});
     return null;
+  }
+
+  @override
+  Future<ParsedMoviesReponse<UserProfile>> getUserProfile() async {
+    http.Response response =
+        await http.get(baseUrl + profilePath + jsonExt).catchError((err) {
+      print(err);
+    });
+
+    if (response == null)
+      return new ParsedMoviesReponse(NO_INTERNET, UserProfile());
+    if (response.statusCode < 200 || response.statusCode >= 300)
+      return new ParsedMoviesReponse(response.statusCode, UserProfile());
+    final object = UserProfile.fromJson(json.decode(response.body));
+    print(object);
+    return ParsedMoviesReponse(response.statusCode, object);
   }
 }

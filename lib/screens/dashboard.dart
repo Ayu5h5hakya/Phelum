@@ -6,6 +6,7 @@ import 'package:phelum/bloc/movie/movie_event.dart';
 import 'package:phelum/bloc/movie/movie_state.dart';
 import 'package:phelum/screens/movie_detail.dart';
 import 'package:phelum/widgets/movie_card.dart';
+import 'package:phelum/widgets/profile_navigation_wrapper.dart';
 
 import '../colors.dart';
 
@@ -19,7 +20,7 @@ class Dashboard extends StatefulWidget {
   }
 
   void _gotoProfile(BuildContext context) async {
-    // await Navigator.pushNamed(context, LoginScreen.routeName);
+     await Navigator.pushNamed(context, ProfileavigationWrapper.routeName);
   }
 
   Widget _getMoviePages(MoviesLoaded state) => PageView.builder(

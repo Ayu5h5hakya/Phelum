@@ -22,6 +22,8 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
       yield* _mapLoggedInToState();
     } else if (event is ConfirmBooking) {
       yield* _mapConfirmingBookingToState(event.booking);
+    } else if (event is LoadProfile) {
+      yield* _mapLoadProfileToState();
     }
   }
 
@@ -44,11 +46,18 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _mapConfirmingBookingToState(Booking booking) async* {
-    try{
+    try {
       await _firebaseUserRepository.confirmBooking(booking);
       yield ConfirmationComplete();
-    }catch(_){
+    } catch (_) {}
+  }
 
+  Stream<AuthState> _mapLoadProfileToState() async* {
+    yield Uninitializaed();
+    try{
+      final profile = await _firebaseUserRepository.getUserProfile();
+      yield ProfileLoaded(profile: profile);
     }
+    catch(_){}
   }
 }

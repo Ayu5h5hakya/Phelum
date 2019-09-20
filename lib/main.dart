@@ -17,6 +17,7 @@ import 'package:phelum/screens/dashboard.dart';
 import 'package:phelum/screens/movie_detail.dart';
 import 'package:phelum/screens/seat_reservation.dart';
 import 'package:phelum/widgets/checkout_navigation_wrapper.dart';
+import 'package:phelum/widgets/profile_navigation_wrapper.dart';
 
 import 'bloc/auth/auth_state.dart';
 
@@ -72,9 +73,17 @@ class MyApp extends StatelessWidget {
                 return BlocProvider.value(
                   value: loginBloc,
                   child: CheckoutavigationWrapper(
-                    seatRepository: seatRepository,
-                    booking: settings.arguments
-                  ),
+                      seatRepository: seatRepository,
+                      booking: settings.arguments),
+                );
+              });
+            }
+          case ProfileavigationWrapper.routeName:
+            {
+              return MaterialPageRoute(builder: (context) {
+                return BlocProvider.value(
+                  value: loginBloc,
+                  child: ProfileavigationWrapper(),
                 );
               });
             }

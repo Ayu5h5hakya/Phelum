@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:phelum/data/repository.dart';
+import 'package:phelum/model/user_profile.dart';
 
 @immutable
 abstract class AuthState extends Equatable {
@@ -19,6 +21,14 @@ class ConfirmingBooking extends AuthState {
 class ConfirmationComplete extends AuthState {
   @override
   String toString() => 'ConfirmationComplete';
+}
+
+class ProfileLoaded extends AuthState {
+  final ParsedMoviesReponse<UserProfile> profile;
+
+  ProfileLoaded({@required this.profile}) : super([profile]);
+  @override
+  String toString() => 'Userprofile {profile : $profile}';
 }
 
 class Authenticated extends AuthState {

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:phelum/model/booking.dart';
+import 'package:phelum/model/user_profile.dart';
 
 @immutable
 abstract class AuthEvent extends Equatable {
@@ -19,6 +20,11 @@ class ConfirmBooking extends AuthEvent {
 
   @override
   String toString() => 'ConfirmBooking : $booking';
+}
+
+class LoadProfile extends AuthEvent {
+  @override
+  String toString() => 'LoadProfile';
 }
 
 class LoggedIn extends AuthEvent {

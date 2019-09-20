@@ -7,7 +7,7 @@ class SeatRepository extends SyncRepository {
 
   SeatRepository({FirebaseDatabase firebaseDatabase}){
      _firebaseDatabase = firebaseDatabase ?? FirebaseDatabase.instance;
-    seatsDB = _firebaseDatabase.reference().child('seats');
+    seatsDB = _firebaseDatabase.reference().child('phelum/seats');
   }
 
   @override
