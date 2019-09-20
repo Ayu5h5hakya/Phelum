@@ -22,11 +22,6 @@ class ConfirmBooking extends AuthEvent {
   String toString() => 'ConfirmBooking : $booking';
 }
 
-class LoadProfile extends AuthEvent {
-  @override
-  String toString() => 'LoadProfile';
-}
-
 class LoggedIn extends AuthEvent {
   @override
   String toString() => 'LoggedIn';

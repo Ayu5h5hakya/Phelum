@@ -7,6 +7,7 @@ import 'package:phelum/bloc/detail/detail_bloc.dart';
 import 'package:phelum/bloc/login/login_bloc.dart';
 import 'package:phelum/bloc/movie/movie_bloc.dart';
 import 'package:phelum/bloc/movie/movie_event.dart';
+import 'package:phelum/bloc/profile/profile_bloc.dart';
 import 'package:phelum/colors.dart';
 import 'package:phelum/data/firebase_movie_repository.dart';
 import 'package:phelum/data/firebase_user_repository.dart';
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
       DetailBloc(firebaseMovieRepository: firebaseMovieRepository);
   final ShowBloc showBloc =
       ShowBloc(firebaseMovieRepository: firebaseMovieRepository);
+  final ProfileBloc profileBloc =
+      ProfileBloc(firebaseUserRepository: firebaseUserRepository);
 
   // This widget is the root of your application.
   @override
@@ -83,7 +86,9 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (context) {
                 return BlocProvider.value(
                   value: loginBloc,
-                  child: ProfileavigationWrapper(),
+                  child: ProfileavigationWrapper(
+                    userRepository: firebaseUserRepository,
+                  ),
                 );
               });
             }

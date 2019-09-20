@@ -43,14 +43,7 @@ class LoginFormState extends State<LoginForm> {
       },
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-            ),
-            backgroundColor: midnightblue,
-            body: _getLoginFormBody(),
-          );
+          return _getLoginFormBody();
         },
       ),
     );
