@@ -56,12 +56,6 @@ class MovieDetailState extends State<MovieDetail> {
         ],
       );
 
-  @override
-  void dispose() {
-    super.dispose();
-    detailBloc.dispose();
-  }
-
   void _gotoCinemaLocation(BuildContext context, Booking booking) async {
     await Navigator.pushNamed(context, CinemaLocation.routeName,
         arguments: booking);

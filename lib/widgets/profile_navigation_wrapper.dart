@@ -23,24 +23,27 @@ class ProfileavigationWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthState>(
       builder: (context, state) {
-        if (state is Authenticated) {
-          return BlocProvider<ProfileBloc>(
-            builder: (context) => ProfileBloc(
-              firebaseUserRepository: userRepository
-            ),
-            child: ProfileScreen(),
-          );
-        } else {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-            ),
-            backgroundColor: midnightblue,
-            body: LoginForm(),
-          );
-        }
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+          ),
+          backgroundColor: midnightblue,
+          body: _getWrapperBody(state),
+        );
       },
     );
+  }
+
+  Widget _getWrapperBody(AuthState state) {
+    if (state is Authenticated) {
+      return BlocProvider<ProfileBloc>(
+        builder: (context) =>
+            ProfileBloc(firebaseUserRepository: userRepository),
+        child: ProfileScreen(),
+      );
+    } else {
+      return LoginForm();
+    }
   }
 }

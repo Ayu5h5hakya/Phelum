@@ -6,6 +6,7 @@ import 'package:phelum/bloc/profile/profile_event.dart';
 import 'package:phelum/bloc/profile/profile_state.dart';
 import 'package:phelum/colors.dart';
 import 'package:phelum/model/booking.dart';
+import 'package:phelum/widgets/profile_divider.dart';
 
 class ProfileScreen extends StatelessWidget {
   final ProfileBloc profileBloc;
@@ -21,48 +22,29 @@ class ProfileScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (state is ProfileLoaded) {
-          return Scaffold(
-              backgroundColor: midnightblue,
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ),
-                  )
-                ],
+          return Column(
+            children: <Widget>[
+              CircleAvatar(
+                backgroundImage: AssetImage('assets/images/fake.jpeg'),
+                radius: 50,
               ),
-              body: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Text(
-                            state.userProfile.body.email,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          Text(
-                            state.userProfile.body.address,
-                            style: TextStyle(color: Colors.white),
-                          )
-                        ],
-                      ),
-                      CircleAvatar(
-                        child: Image.asset('assets/images/fake.jpeg'),
-                      )
-                    ],
-                  ),
-                  Expanded(
-                    child:
-                        _getConfirmationsList(state.userProfile.body.bookings),
-                  )
-                ],
-              ));
+              ProfileDivider(
+                color: Colors.white,
+                thickness: 2.0,
+              ),
+              Text(
+                state.userProfile.body.email,
+                style: TextStyle(fontSize: 18.0),
+              ),
+              Text(
+                state.userProfile.body.address,
+                style: TextStyle(fontSize: 15.0),
+              ),
+              Expanded(
+                child: _getConfirmationsList(state.userProfile.body.bookings),
+              )
+            ],
+          );
         }
       },
     );
@@ -72,16 +54,20 @@ class ProfileScreen extends StatelessWidget {
     return ListView.builder(
       itemCount: previousBookings.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(
-            previousBookings.elementAt(index).movieName,
-            style: TextStyle(color: Colors.white),
-          ),
-          subtitle: Text(
-            previousBookings.elementAt(index).movieDate +
-                " | " +
-                previousBookings.elementAt(index).movieTime,
-            style: TextStyle(color: Colors.white),
+        return Container(
+          color: Colors.white,
+          margin: EdgeInsets.all(10.0),
+          child: ListTile(
+            title: Text(
+              previousBookings.elementAt(index).movieName,
+              style: TextStyle(color: Colors.black),
+            ),
+            subtitle: Text(
+              previousBookings.elementAt(index).movieDate +
+                  " | " +
+                  previousBookings.elementAt(index).movieTime,
+              style: TextStyle(color: Colors.black),
+            ),
           ),
         );
       },
