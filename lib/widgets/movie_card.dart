@@ -29,6 +29,9 @@ class MovieCard extends StatelessWidget {
                         width: 50,
                         height: 50,
                         color: Colors.red,
+                        child: Center(
+                          child: Text(dashboardItem.rating.toString()),
+                        ),
                       ),
                     ),
                   )
