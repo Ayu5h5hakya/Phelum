@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phelum/bloc/auth/auth_bloc.dart';
 import 'package:phelum/bloc/auth/auth_event.dart';
+import 'package:phelum/bloc/bloc_super.dart';
 import 'package:phelum/bloc/cinemaShow/show_bloc.dart';
 import 'package:phelum/bloc/detail/detail_bloc.dart';
 import 'package:phelum/bloc/login/login_bloc.dart';
@@ -19,10 +20,13 @@ import 'package:phelum/screens/movie_detail.dart';
 import 'package:phelum/screens/seat_reservation.dart';
 import 'package:phelum/widgets/checkout_navigation_wrapper.dart';
 import 'package:phelum/widgets/profile_navigation_wrapper.dart';
-
+import 'package:bloc/bloc.dart';
 import 'bloc/auth/auth_state.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  BlocSupervisor.delegate = BlocSuper();
+  runApp(MyApp());
+} 
 
 class MyApp extends StatelessWidget {
   static final FirebaseUserRepository firebaseUserRepository =
@@ -57,11 +61,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: wetasphalt,
-        textTheme: Theme.of(context).textTheme.apply(
-          bodyColor: Colors.white,
-          
-        )),
+          primaryColor: wetasphalt,
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: Colors.white,
+              )),
       home: MultiBlocProvider(
         providers: [
           BlocProvider<MovieBloc>(

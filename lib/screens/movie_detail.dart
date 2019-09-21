@@ -4,55 +4,67 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phelum/bloc/detail/detail_bloc.dart';
 import 'package:phelum/bloc/detail/detail_event.dart';
 import 'package:phelum/bloc/detail/detail_state.dart';
-import 'package:phelum/bloc/movie/movie_bloc.dart';
-import 'package:phelum/bloc/movie/movie_state.dart';
 import 'package:phelum/colors.dart';
 import 'package:phelum/model/booking.dart';
 import 'package:phelum/model/movie.dart';
 import 'package:phelum/screens/cinema_location.dart';
-import 'package:phelum/screens/seat_reservation.dart';
 import 'package:phelum/widgets/genre_tag.dart';
 import 'package:phelum/widgets/rating.dart';
 import 'package:phelum/widgets/switch_meta_info.dart';
 import 'package:phelum/widgets/synopsis_view.dart';
 
-class MovieDetail extends StatelessWidget {
+class MovieDetail extends StatefulWidget {
   static const routeName = '/movie_detail';
   final int movie_id;
 
   MovieDetail({this.movie_id});
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    BlocProvider.of<DetailBloc>(context)
-      ..dispatch(LoadMovieDetails(movieId: movie_id));
-    return Stack(
-      children: <Widget>[
-        Container(
-          color: wetasphalt,
-        ),
-        BlocBuilder<DetailBloc, DetailState>(
-          builder: (context, state) {
-            if (state is DetailLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (state is MovieDetailLoaded) {
-              return _displayMovieDetails(context, state.movieDetail.body);
-            }
-            if (state is DetailsNotLoaded) {
-              return Text('err');
-            }
-          },
-        )
-      ],
-    );
+  State<StatefulWidget> createState() => MovieDetailState();
+}
+
+class MovieDetailState extends State<MovieDetail> {
+  DetailBloc detailBloc;
+  @override
+  void initState() {
+    super.initState();
+    detailBloc = BlocProvider.of<DetailBloc>(context);
+    detailBloc.dispatch(LoadMovieDetails(movieId: widget.movie_id));
+  }
+
+  @override
+  Widget build(BuildContext context) => Stack(
+        children: <Widget>[
+          Container(
+            color: wetasphalt,
+          ),
+          BlocBuilder<DetailBloc, DetailState>(
+            builder: (context, state) {
+              if (state is DetailLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is MovieDetailLoaded) {
+                return _displayMovieDetails(context, state.movieDetail.body);
+              }
+              if (state is DetailsNotLoaded) {
+                return Text('err');
+              }
+            },
+          )
+        ],
+      );
+
+  @override
+  void dispose() {
+    super.dispose();
+    detailBloc.dispose();
   }
 
   void _gotoCinemaLocation(BuildContext context, Booking booking) async {
-    await Navigator.pushNamed(context, CinemaLocation.routeName, arguments: booking);
+    await Navigator.pushNamed(context, CinemaLocation.routeName,
+        arguments: booking);
   }
 
   Widget _displayMovieDetails(BuildContext context, Movie movie) => Scaffold(
@@ -78,7 +90,7 @@ class MovieDetail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SynopsisWidget(value : movie.synopsis),
+                SynopsisWidget(value: movie.synopsis),
                 SizedBox(
                   height: 45,
                   child: ListView.builder(
@@ -95,7 +107,9 @@ class MovieDetail extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      RatingWidget(rating: movie.rating,),
+                      RatingWidget(
+                        rating: movie.rating,
+                      ),
                       Text(
                         movie.pRating,
                         style: TextStyle(fontSize: 40),
@@ -103,7 +117,11 @@ class MovieDetail extends StatelessWidget {
                     ],
                   ),
                 ),
-                SwitchableMetaInformation(director : movie.director, budget : movie.budget, location : movie.location, ratio : movie.ratio)
+                SwitchableMetaInformation(
+                    director: movie.director,
+                    budget: movie.budget,
+                    location: movie.location,
+                    ratio: movie.ratio)
               ],
             ),
           ),
@@ -111,15 +129,19 @@ class MovieDetail extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.event_seat),
           onPressed: () {
-            _gotoCinemaLocation(context, Booking(
-              movieId: movie_id, 
-              movieName : movie.title,
-              moviePoster: movie.posterLandscape,
-              rating: movie.rating,
-              movieGenre: movie.genre.fold("", (previous, current){
-                if(previous.isEmpty) return current;
-                else return previous + "|" + current;
-              })));
+            _gotoCinemaLocation(
+                context,
+                Booking(
+                    movieId: widget.movie_id,
+                    movieName: movie.title,
+                    moviePoster: movie.posterLandscape,
+                    rating: movie.rating,
+                    movieGenre: movie.genre.fold("", (previous, current) {
+                      if (previous.isEmpty)
+                        return current;
+                      else
+                        return previous + "|" + current;
+                    })));
           },
         ),
       );

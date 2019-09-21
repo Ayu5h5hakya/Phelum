@@ -12,35 +12,53 @@ import 'package:phelum/screens/seat_reservation.dart';
 import 'package:phelum/widgets/checkout_navigation_wrapper.dart';
 import 'package:phelum/widgets/time_tag.dart';
 
-class CinemaLocation extends StatelessWidget {
+class CinemaLocation extends StatefulWidget {
   static const routeName = '/cinema_location';
   final Booking booking;
 
   CinemaLocation({this.booking});
 
   @override
-  Widget build(BuildContext context) {
-    BlocProvider.of<ShowBloc>(context)
-      ..dispatch(LoadValidCinemas(movieId: booking.movieId));
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Cinemas'),
-        ),
-        backgroundColor: midnightblue,
-        body: BlocBuilder<ShowBloc, CinemaState>(
-          builder: (context, state) {
-            if (state is CinemaShowLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is CinemaShowLoaded) {
-              return _getShowCinemas(context, state.cinemaDetail.body);
-            } else {
-              return Text('err');
-            }
-          },
-        ));
+  CinemaLocationState createState() => CinemaLocationState();
+}
+
+class CinemaLocationState extends State<CinemaLocation> {
+  ShowBloc showBloc;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    showBloc = BlocProvider.of<ShowBloc>(context)
+      ..dispatch(LoadValidCinemas(movieId: widget.booking.movieId));
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    showBloc.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(
+        title: Text('Cinemas'),
+      ),
+      backgroundColor: midnightblue,
+      body: BlocBuilder<ShowBloc, CinemaState>(
+        builder: (context, state) {
+          if (state is CinemaShowLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is CinemaShowLoaded) {
+            return _getShowCinemas(context, state.cinemaDetail.body);
+          } else {
+            return Text('err');
+          }
+        },
+      ));
 
   Widget _getShowCinemas(BuildContext context, List<ShowSchedule> shows) {
     return ListView.builder(
@@ -52,7 +70,10 @@ class CinemaLocation extends StatelessWidget {
                 shows.elementAt(index).cinemaName,
               ),
               subtitle: Text(
-                (shows.elementAt(index) as CinemaData).address, style: TextStyle(color: Colors.white), // Global theming does not work for subtitles in listtile ??
+                (shows.elementAt(index) as CinemaData).address,
+                style: TextStyle(
+                    color: Colors
+                        .white), // Global theming does not work for subtitles in listtile ??
               ),
               trailing: Text(
                 (shows.elementAt(index) as CinemaData).rating.toString(),
@@ -104,10 +125,10 @@ class CinemaLocation extends StatelessWidget {
 
   void _gotoSeatBooking(BuildContext context, String cinema, String date,
       String time_code) async {
-    booking.cinemaName = cinema;
-    booking.movieTime = time_code;
-    booking.movieDate = date;
+    widget.booking.cinemaName = cinema;
+    widget.booking.movieTime = time_code;
+    widget.booking.movieDate = date;
     await Navigator.pushNamed(context, CheckoutavigationWrapper.routeName,
-        arguments: booking);
+        arguments: widget.booking);
   }
 }
