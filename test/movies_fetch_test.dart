@@ -21,17 +21,5 @@ main() {
       expect(await firebaseMoviesRepository.movies(),
           TypeMatcher<ParsedMoviesReponse>());
     });
-
-    test('throws an exception if the http call completes unsuccessfully',
-        () async {
-      final client = MoviesMockClient();
-      final firebaseMoviesRepository = FirebaseMovieRepository(client: client);
-      when(client
-              .get('https://coviva-6c25f.firebaseio.com/phelum/dashboard.json'))
-          .thenAnswer((_) async => Response(
-              'Not found',
-              404));
-      expect(await firebaseMoviesRepository.movies(), TypeMatcher<Exception>());
-    });
   });
 }
