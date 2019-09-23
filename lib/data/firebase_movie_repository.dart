@@ -13,11 +13,13 @@ class FirebaseMovieRepository extends MovieRepository {
   static final dashboardPath = 'dashboard';
   static final moviePath = 'movies';
   static final showsPath = 'cinemas';
+  final http.Client client;
+  FirebaseMovieRepository({this.client});
 
   @override
   Future<ParsedMoviesReponse<List<DashboardItem>>> movies() async {
     http.Response response =
-        await http.get(baseUrl + dashboardPath + jsonExt).catchError((err) {});
+        await client.get(baseUrl + dashboardPath + jsonExt).catchError((err) {});
 
     if (response == null) return new ParsedMoviesReponse(NO_INTERNET, []);
 
@@ -36,7 +38,7 @@ class FirebaseMovieRepository extends MovieRepository {
 
   @override
   Future<ParsedMoviesReponse<Movie>> movieDetail(int id) async {
-    http.Response response = await http
+    http.Response response = await client
         .get(baseUrl + moviePath + '/$id' + jsonExt)
         .catchError((err) {
       print(err);
@@ -54,7 +56,7 @@ class FirebaseMovieRepository extends MovieRepository {
   @override
   Future<ParsedMoviesReponse<List<ShowSchedule>>> cinemaDetails(int id) async {
     http.Response response =
-        await http.get(baseUrl + showsPath +'/$id'+ jsonExt).catchError((err) {
+        await client.get(baseUrl + showsPath +'/$id'+ jsonExt).catchError((err) {
       print(err);
     });
     if (response == null) return new ParsedMoviesReponse(NO_INTERNET, []);

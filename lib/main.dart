@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/io_client.dart';
 import 'package:phelum/bloc/auth/auth_bloc.dart';
 import 'package:phelum/bloc/auth/auth_event.dart';
 import 'package:phelum/bloc/bloc_super.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
   static final FirebaseUserRepository firebaseUserRepository =
       FirebaseUserRepository();
   static final FirebaseMovieRepository firebaseMovieRepository =
-      FirebaseMovieRepository();
+      FirebaseMovieRepository(client: IOClient());
   static final SeatRepository seatRepository = SeatRepository();
 
   final MovieBloc movieBloc =
